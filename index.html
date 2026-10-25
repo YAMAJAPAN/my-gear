@@ -55,7 +55,18 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: 0.2s;
+        }
+        .x-link:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .x-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .nav-title {
             font-weight: 900;
@@ -73,10 +84,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s;
-        }
-        .nav-profile:hover {
-            border-color: rgba(255, 255, 255, 0.4);
         }
         .nav-profile img {
             width: 100%;
@@ -261,16 +268,16 @@
     <!-- ナビゲーションバー -->
     <nav class="navbar">
         <div class="nav-brand">
-            <!-- 左のXアイコン（押しても何も起きない） -->
-            <div class="x-link" aria-label="X Icon">
-                <i class="fa-brands fa-x-twitter"></i>
-            </div>
+            <!-- 左のアイコン（さっきの画像、押すとXに飛ぶ） -->
+            <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="x-link" aria-label="X Profile">
+                <img src="https://pbs.twimg.com/profile_images/2114342559959199745/d6f5cKYd_400x400.jpg" alt="X Profile">
+            </a>
             <span class="nav-title">YAMA</span>
         </div>
-        <!-- 右の自分のアイコン（押すとXに飛ぶ） -->
-        <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="nav-profile" aria-label="X Profile">
-            <img src="https://pbs.twimg.com/profile_images/2114342559959199745/d6f5cKYd_400x400.jpg" alt="X Profile">
-        </a>
+        <!-- 右の自分のアイコン（リンクなし） -->
+        <div class="nav-profile" aria-label="My Profile Icon">
+            <img src="icon.jpg" alt="Profile">
+        </div>
     </nav>
 
     <main class="container">
