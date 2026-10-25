@@ -49,8 +49,8 @@
         .x-link {
             color: var(--text-muted);
             background: rgba(255, 255, 255, 0.05);
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -268,16 +268,16 @@
     <!-- ナビゲーションバー -->
     <nav class="navbar">
         <div class="nav-brand">
-            <!-- 左のアイコン（さっきの画像、押すとXに飛ぶ） -->
-            <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="x-link" aria-label="X Profile">
-                <img src="https://pbs.twimg.com/profile_images/2114342559959199745/d6f5cKYd_400x400.jpg" alt="X Profile">
-            </a>
+            <!-- 左の自分のアイコン（リンクなし） -->
+            <div class="nav-profile" aria-label="Profile Icon">
+                <img src="https://pbs.twimg.com/profile_images/2114342559959199745/d6f5cKYd_400x400.jpg" alt="Profile">
+            </div>
             <span class="nav-title">YAMA</span>
         </div>
-        <!-- 右の自分のアイコン（リンクなし） -->
-        <div class="nav-profile" aria-label="My Profile Icon">
-            <img src="icon.jpg" alt="Profile">
-        </div>
+        <!-- 右のXアイコン（押すとXに飛ぶ） -->
+        <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="x-link" aria-label="X Profile">
+            <img src="https://img.magnific.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_hybrid&w=740&q=80" alt="X Profile">
+        </a>
     </nav>
 
     <main class="container">
