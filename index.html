@@ -14,8 +14,8 @@
 
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(17, 24, 39, 0.7);
+            --bg-color: #000000;
+            --card-bg: rgba(10, 10, 10, 0.85);
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
@@ -35,7 +35,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(11, 15, 25, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
@@ -180,12 +180,10 @@
             color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
         }
-        
-        /* ▼▼▼ 画像枠＆はみ出し防止の修正スタイル ▼▼▼ */
         .card-img-wrapper {
             width: 100%;
             height: 130px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 0.5rem;
             margin-top: 1rem;
             display: flex;
@@ -194,17 +192,14 @@
             border: 1px dashed rgba(255, 255, 255, 0.2);
             color: var(--text-muted);
             font-size: 0.75rem;
-            overflow: hidden; /* はみ出した部分を隠す */
+            overflow: hidden;
             position: relative;
         }
         .card-img-wrapper img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* 枠の中に綺麗に収める */
+            object-fit: contain;
         }
-        /* ▲▲▲ ---------------------------------- ▲▲▲ */
-
-        /* System & Games */
         .spec-table {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -269,15 +264,15 @@
     <!-- ナビゲーションバー -->
     <nav class="navbar">
         <div class="nav-brand">
-            <!-- 左上のX（Twitter）アイコン -->
-            <a href="https://twitter.com/YOUR_X_ID" target="_blank" rel="noopener" class="x-link" aria-label="X Profile">
+            <!-- 左上のX（Twitter）アイコン（押すとXに飛ぶ） -->
+            <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="x-link" aria-label="X Profile">
                 <i class="fa-brands fa-x-twitter"></i>
             </a>
             <span class="nav-title">YAMA</span>
         </div>
         <!-- 右上の自分のアイコン -->
         <div class="nav-profile" aria-label="My Profile Icon">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Profile">
+            <img src="icon.jpg" alt="Profile">
         </div>
     </nav>
 
@@ -335,7 +330,7 @@
                     </div>
                 </div>
 
-                <!-- Mouses -->
+                <!-- Mice -->
                 <div class="grid-section">
                     <div class="section-header"><h2><i class="fa-solid fa-computer-mouse"></i> Mice</h2></div>
                     <div class="bento-grid">
