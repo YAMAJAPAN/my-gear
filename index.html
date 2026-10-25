@@ -55,14 +55,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            text-decoration: none;
-            transition: 0.2s;
             border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .x-link:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
         }
         .nav-title {
             font-weight: 900;
@@ -80,6 +73,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.2s;
+        }
+        .nav-profile:hover {
+            border-color: rgba(255, 255, 255, 0.4);
         }
         .nav-profile img {
             width: 100%;
@@ -189,7 +186,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.25); /* 白の枠線 */
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: var(--text-muted);
             font-size: 0.75rem;
             overflow: hidden;
@@ -264,16 +261,16 @@
     <!-- ナビゲーションバー -->
     <nav class="navbar">
         <div class="nav-brand">
-            <!-- 左上のX（Twitter）アイコン（ここを押すとXに飛ぶ） -->
-            <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="x-link" aria-label="X Profile">
+            <!-- 左のXアイコン（押しても何も起きない） -->
+            <div class="x-link" aria-label="X Icon">
                 <i class="fa-brands fa-x-twitter"></i>
-            </a>
+            </div>
             <span class="nav-title">YAMA</span>
         </div>
-        <!-- 右上の自分のアイコン（ただの画像表示、リンクなし） -->
-        <div class="nav-profile" aria-label="My Profile Icon">
+        <!-- 右の自分のアイコン（押すとXに飛ぶ） -->
+        <a href="https://twitter.com/RX9070XT" target="_blank" rel="noopener" class="nav-profile" aria-label="X Profile">
             <img src="https://photos.fife.usercontent.google.com/pw/AP1GczOfGqp0wtnBI5UbGv0UkqmSC6uiqWGJeT1CIqH7PrvlDj4PC0K0iQyf=w728-h970-s-no-gm?authuser=0" alt="Profile">
-        </div>
+        </a>
     </nav>
 
     <main class="container">
