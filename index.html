@@ -180,7 +180,8 @@
             color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
         }
-        /* 画像を貼るプレースホルダー */
+        
+        /* ▼▼▼ 画像枠＆はみ出し防止の修正スタイル ▼▼▼ */
         .card-img-wrapper {
             width: 100%;
             height: 130px;
@@ -193,13 +194,16 @@
             border: 1px dashed rgba(255, 255, 255, 0.2);
             color: var(--text-muted);
             font-size: 0.75rem;
-            overflow: hidden;
+            overflow: hidden; /* はみ出した部分を隠す */
+            position: relative;
         }
         .card-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 枠の中に綺麗に収める */
         }
+        /* ▲▲▲ ---------------------------------- ▲▲▲ */
+
         /* System & Games */
         .spec-table {
             display: grid;
@@ -273,9 +277,7 @@
         </div>
         <!-- 右上の自分のアイコン -->
         <div class="nav-profile" aria-label="My Profile Icon">
-            <!-- 画像を入れる場合は下のコメントアウトを外して src に画像のURLやファイル名を入れてください -->
-            <!-- <img src="images/my-icon.jpg" alt="Profile"> -->
-            <span style="font-size: 10px; color: #888;">Icon</span>
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Profile">
         </div>
     </nav>
 
