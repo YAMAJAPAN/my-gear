@@ -19,7 +19,7 @@
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
-            --accent-color: #38bdf8;
+            --accent-color: #71717a; /* 濃いめの灰色 */
         }
         body {
             background-color: var(--bg-color);
@@ -189,7 +189,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.25); /* 白の枠線（実線）に変更 */
+            border: 1px solid rgba(255, 255, 255, 0.25); /* 白の枠線 */
             color: var(--text-muted);
             font-size: 0.75rem;
             overflow: hidden;
@@ -332,7 +332,7 @@
 
                 <!-- Mouses -->
                 <div class="grid-section">
-                    <div class="section-header"><h2><i class="fa-solid fa-computer-mouse"></i> Mice</h2></div>
+                    <div class="section-header"><h2><i class="fa-solid fa-computer-mouse"></i> Mouses</h2></div>
                     <div class="bento-grid">
                         <div class="card">
                             <div class="card-header-row">
@@ -470,4 +470,54 @@
                     <div class="spec-cell"><dt>CPU</dt><dd>RYZEN 7 9800X3D</dd></div>
                     <div class="spec-cell"><dt>GPU</dt><dd>RADEON RX 7900 XT 20GB</dd></div>
                     <div class="spec-cell"><dt>RAM</dt><dd>CORSAIR VENGEANCE RGB DDR5 32GB</dd></div>
-                    <div class="spec-cell"><dt>M/B
+                    <div class="spec-cell"><dt>M/B</dt><dd>B650m PRO X 3D WIFI</dd></div>
+                    <div class="spec-cell"><dt>STORAGE</dt><dd>KIOXIA SSD-CK2.0N4B/R</dd></div>
+                    <div class="spec-cell"><dt>CASE</dt><dd>S100 TG BLACK</dd></div>
+                    <div class="spec-cell"><dt>PSU</dt><dd>AG-850M-V2</dd></div>
+                    <div class="spec-cell"><dt>COOLING</dt><dd>虎徹 MARK3</dd></div>
+                </dl>
+            </div>
+
+            <!-- [TAB 3] GAMES -->
+            <div id="games" class="tab-content">
+                <section class="game-block">
+                    <h2 class="game-title">Krunker.io</h2>
+                    <div class="game-values">
+                        <div class="game-value"><span class="game-value-num">0.35</span><span class="game-value-label">Sensitivity X</span></div>
+                        <div class="game-value"><span class="game-value-num">0.35</span><span class="game-value-label">Sensitivity Y</span></div>
+                        <div class="game-value"><span class="game-value-num">0.3</span><span class="game-value-label">Aim Sensitivity X</span></div>
+                        <div class="game-value"><span class="game-value-num">0.3</span><span class="game-value-label">Aim Sensitivity Y</span></div>
+                        <div class="game-value"><span class="game-value-num">800</span><span class="game-value-label">DPI</span></div>
+                        <div class="game-value"><span class="game-value-num">90</span><span class="game-value-label">FOV</span></div>
+                    </div>
+                </section>
+                <section class="game-block">
+                    <h2 class="game-title">Minecraft</h2>
+                    <div class="game-values">
+                        <div class="game-value"><span class="game-value-num">50%</span><span class="game-value-label">Sensitivity</span></div>
+                        <div class="game-value"><span class="game-value-num">800</span><span class="game-value-label">DPI</span></div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- タブ切り替えスクリプト -->
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                const target = document.getElementById(tab.dataset.tab);
+                target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
