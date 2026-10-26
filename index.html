@@ -204,6 +204,95 @@
             max-height: 100%;
             object-fit: contain;
         }
+        
+        /* ギャラリー自動スクロール用スタイル */
+        .gallery-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            backdrop-filter: blur(12px);
+        }
+        .gallery-track {
+            display: flex;
+            gap: 1.25rem;
+            width: max-content;
+            animation: scrollGallery 25s linear infinite;
+        }
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
+        .gallery-item {
+            width: 320px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s, border-color 0.2s;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        @keyframes scrollGallery {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 0.625rem)); }
+        }
+
+        /* 拡大モーダル用スタイル */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content-wrap {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        .modal-img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 0.75rem;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
         .spec-table {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -479,21 +568,19 @@
                     <div class="spec-cell"><dt>COOLING</dt><dd>虎徹 MARK3</dd></div>
                 </dl>
 
-                <!-- ギャラリーセクション（システムタブ内） -->
+                <!-- ギャラリーセクション（自動スクロール・2枚用） -->
                 <div class="section-header" style="margin-top: 2.5rem;">
                     <h2><i class="fa-solid fa-camera"></i> Gallery</h2>
                 </div>
-                <div class="bento-grid">
-                    <div class="card">
-                        <div class="card-text">
-                            <span class="brand">Setup Photo</span>
-                            <h3>(貼る場所)</h3>
-                        </div>
-                        <!-- 貼る場所: ここに画像のURLやimgタグを記述してください -->
-                        <div class="card-img-wrapper">
-                            <!-- (貼る場所) -->
-                            <img src="" alt="(貼る場所)" class="max-h-full max-w-full object-contain">
-                        </div>
+                <div class="gallery-viewport">
+                    <div class="gallery-track">
+                        <!-- 写真 1（本番用） -->
+                        <img src="" alt="Setup Photo 1" class="gallery-item" data-action="zoom">
+                        <!-- 写真 2（本番用） -->
+                        <img src="" alt="Setup Photo 2" class="gallery-item" data-action="zoom">
+                        <!-- ループ用の複製（シームレスに自動流しするため同じ2枚を再配置） -->
+                        <img src="" alt="Setup Photo 1" class="gallery-item" data-action="zoom" aria-hidden="true">
+                        <img src="" alt="Setup Photo 2" class="gallery-item" data-action="zoom" aria-hidden="true">
                     </div>
                 </div>
             </div>
@@ -523,8 +610,19 @@
         </div>
     </main>
 
-    <!-- タブ切り替えスクリプト -->
+    <!-- 写真拡大用モーダル -->
+    <div id="image-modal" class="modal-overlay">
+        <div class="modal-content-wrap">
+            <button id="modal-close" class="modal-close-btn" type="button">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="modal-image" class="modal-img" src="" alt="Enlarged setup photo">
+        </div>
+    </div>
+
+    <!-- スクリプト (タブ切り替え ＆ 画像拡大モーダル ＆ 自動スクロール制御) -->
     <script>
+        // タブ切り替え
         const tabs = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');
 
@@ -538,7 +636,36 @@
                 target.classList.add('active');
             });
         });
+
+        // 画像クリック時の拡大モーダル機能
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalClose = document.getElementById('modal-close');
+        const galleryImages = document.querySelectorAll('.gallery-item');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                if (img.src && img.src !== window.location.href) {
+                    modalImage.src = img.src;
+                    modal.classList.add('active');
+                }
+            });
+        });
+
+        const closeModal = () => {
+            modal.classList.remove('active');
+            modalImage.src = '';
+        };
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 </body>
 </html>
-                                <span class="card-price">¥30,
