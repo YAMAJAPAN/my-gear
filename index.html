@@ -326,6 +326,21 @@
             margin: 0;
             color: #fff;
         }
+        /* GPUなどの上下配置用スタイル */
+        .spec-main {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .spec-sub {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 0.15rem;
+        }
+
         .game-block {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -578,7 +593,13 @@
                 <div class="section-header"><h2><i class="fa-solid fa-microchip"></i> PC Components</h2></div>
                 <dl class="spec-table" style="margin-bottom: 2rem;">
                     <div class="spec-cell"><dt>CPU</dt><dd>RYZEN 7 9800X3D</dd></div>
-                    <div class="spec-cell"><dt>GPU</dt><dd>Phantom Gaming RADEON RX 7900 XT 20GB</dd></div>
+                    <div class="spec-cell">
+                        <dt>GPU</dt>
+                        <dd>
+                            <span class="spec-main">RADEON RX 7900 XT 20GB</span>
+                            <span class="spec-sub">Phantom Gaming</span>
+                        </dd>
+                    </div>
                     <div class="spec-cell"><dt>RAM</dt><dd>CORSAIR VENGEANCE DDR5 16*2GB</dd></div>
                     <div class="spec-cell"><dt>M/B</dt><dd>B650m PRO X 3D WIFI</dd></div>
                     <div class="spec-cell"><dt>STORAGE</dt><dd>KIOXIA SSD-CK2.0N4B/R</dd></div>
@@ -683,4 +704,5 @@
         });
     </script>
 </body>
+</html>
 </html>
