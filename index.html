@@ -134,9 +134,6 @@
             margin-bottom: 2.5rem;
         }
         .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 1rem;
         }
         .section-header h2 {
@@ -147,23 +144,6 @@
             align-items: center;
             gap: 0.5rem;
             color: #e5e7eb;
-        }
-        .gallery-toggle-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-        }
-        .gallery-toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
         }
         .bento-grid {
             display: grid;
@@ -241,51 +221,32 @@
             object-fit: contain;
         }
         
-        /* 参考サイト仕様のギャラリー＆高画質レンダリング設定 */
+        /* 動かない高画質2枚ギャラリースタイル */
         .gallery-section {
             margin-top: 2.5rem;
         }
-        .gallery-viewport {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 1rem;
             padding: 1.25rem;
             backdrop-filter: blur(12px);
         }
-        .gallery-track {
-            display: flex;
-            gap: 1.25rem;
-            width: max-content;
-            animation: scrollGallery 25s linear infinite;
-        }
-        .gallery-viewport:hover .gallery-track,
-        .gallery-track.paused {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollGallery {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
         .gallery-item {
-            width: 320px;
-            height: 210px;
+            width: 100%;
+            height: 220px;
             object-fit: cover;
             border-radius: 0.75rem;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.15);
             background: rgba(0, 0, 0, 0.6);
-            flex-shrink: 0;
-            /* 画像のぼやけを防ぎシャープに描画する */
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            transition: border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
         }
         .gallery-item:hover {
+            transform: scale(1.01);
             border-color: rgba(255, 255, 255, 0.4);
         }
 
@@ -655,23 +616,14 @@
                     <div class="spec-cell"><dt>COOLING</dt><dd>虎徹 MARK3</dd></div>
                 </dl>
 
-                <!-- ギャラリーセクション（参考サイトと完全に同じ構造・属性） -->
+                <!-- ギャラリーセクション（動かない・高画質2枚固定） -->
                 <div class="gallery-section">
                     <div class="section-header">
                         <h2><i class="fa-solid fa-camera" aria-hidden="true"></i> Gallery</h2>
-                        <button id="gallery-toggle" class="gallery-toggle-btn" type="button" aria-pressed="false">
-                            <i class="fa-solid fa-pause" aria-hidden="true"></i>
-                            <span class="sr-only">Pause gallery animation</span>
-                        </button>
                     </div>
-                    <div class="gallery-viewport">
-                        <div class="gallery-track" id="gallery-track">
-                            <img src="https://i.ibb.co/jv149Vqf/image.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="Gallery Photo 1" tabindex="0" role="button">
-                            <img src="https://i.ibb.co/gLQkJjr4/IMG-3366.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="Gallery Photo 2" tabindex="0" role="button">
-                            <!-- 無限ループ用複製 -->
-                            <img src="https://i.ibb.co/jv149Vqf/image.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="" aria-hidden="true">
-                            <img src="https://i.ibb.co/gLQkJjr4/IMG-3366.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="" aria-hidden="true">
-                        </div>
+                    <div class="gallery-grid">
+                        <img src="https://i.ibb.co/jv149Vqf/image.jpg" class="gallery-item" loading="lazy" decoding="async" alt="Gallery Photo 1" tabindex="0" role="button">
+                        <img src="https://i.ibb.co/gLQkJjr4/IMG-3366.jpg" class="gallery-item" loading="lazy" decoding="async" alt="Gallery Photo 2" tabindex="0" role="button">
                     </div>
                 </div>
             </div>
@@ -921,20 +873,6 @@
                 target.classList.add('active');
             });
         });
-
-        // ギャラリー一時停止 / 再生ボタン
-        const galleryToggleBtn = document.getElementById('gallery-toggle');
-        const galleryTrack = document.getElementById('gallery-track');
-
-        if (galleryToggleBtn && galleryTrack) {
-            galleryToggleBtn.addEventListener('click', () => {
-                const isPaused = galleryTrack.classList.toggle('paused');
-                galleryToggleBtn.setAttribute('aria-pressed', isPaused);
-                galleryToggleBtn.innerHTML = isPaused 
-                    ? '<i class="fa-solid fa-play" aria-hidden="true"></i><span class="sr-only">Resume gallery animation</span>' 
-                    : '<i class="fa-solid fa-pause" aria-hidden="true"></i><span class="sr-only">Pause gallery animation</span>';
-            });
-        }
 
         // 画像クリック時の拡大モーダル処理
         const modal = document.getElementById('image-modal');
