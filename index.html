@@ -218,8 +218,9 @@
             object-fit: contain;
         }
         
+        /* 手動スワイプ可能なギャラリー */
         .gallery-viewport {
-            overflow: hidden;
+            overflow-x: auto;
             width: 100%;
             position: relative;
             background: var(--card-bg);
@@ -227,15 +228,20 @@
             border-radius: 1rem;
             padding: 1.25rem;
             backdrop-filter: blur(12px);
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        .gallery-viewport::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-viewport::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
         }
         .gallery-track {
             display: flex;
             gap: 1.25rem;
             width: max-content;
-            animation: scrollGallery 25s linear infinite;
-        }
-        .gallery-track:hover {
-            animation-play-state: paused;
         }
         .gallery-item {
             width: 320px;
@@ -246,14 +252,11 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             transition: transform 0.2s, border-color 0.2s;
             background: rgba(0, 0, 0, 0.6);
+            scroll-snap-align: start;
         }
         .gallery-item:hover {
             transform: scale(1.02);
             border-color: rgba(255, 255, 255, 0.4);
-        }
-        @keyframes scrollGallery {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 0.625rem)); }
         }
 
         .modal-overlay {
@@ -621,17 +624,14 @@
                     <div class="spec-cell"><dt>COOLING</dt><dd>虎徹 MARK3</dd></div>
                 </dl>
 
-                <!-- ギャラリーセクション -->
+                <!-- ギャラリーセクション（手動スワイプ対応） -->
                 <div class="section-header" style="margin-top: 2.5rem;">
                     <h2><i class="fa-solid fa-camera"></i> Gallery</h2>
                 </div>
                 <div class="gallery-viewport">
                     <div class="gallery-track">
-                        <img src="https://i.ibb.co/VYJC3hkM/HVj798-Xac-AAKb-JA.jpg" alt="Setup Photo 1" class="max-h-full max-w-full object-contain">
-                        <img src="https://i.ibb.co/QvPgTDgb/HVj798-Tac-AAptob.jpg" alt="Setup Photo 2" class="max-h-full max-w-full object-contain">
-                        <!-- ループ用の複製 -->
-                        <img src="https://i.ibb.co/VYJC3hkM/HVj798-Xac-AAKb-JA.jpg" alt="Setup Photo 1 Loop" class="max-h-full max-w-full object-contain">
-                        <img src="https://i.ibb.co/QvPgTDgb/HVj798-Tac-AAptob.jpg" alt="Setup Photo 2 Loop" class="max-h-full max-w-full object-contain">
+                        <img src="https://i.ibb.co/VYJC3hkM/HVj798-Xac-AAKb-JA.jpg" alt="Setup Photo 1" class="gallery-item">
+                        <img src="https://i.ibb.co/QvPgTDgb/HVj798-Tac-AAptob.jpg" alt="Setup Photo 2" class="gallery-item">
                     </div>
                 </div>
             </div>
