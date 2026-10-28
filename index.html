@@ -241,7 +241,7 @@
             object-fit: contain;
         }
         
-        /* 自動スクロールギャラリースタイル */
+        /* 参考サイト仕様のギャラリー＆高画質レンダリング設定 */
         .gallery-section {
             margin-top: 2.5rem;
         }
@@ -261,19 +261,14 @@
             width: max-content;
             animation: scrollGallery 25s linear infinite;
         }
-        /* マウスホバー時や一時停止クラスがついたときにアニメーションを止める */
         .gallery-viewport:hover .gallery-track,
         .gallery-track.paused {
             animation-play-state: paused;
         }
 
         @keyframes scrollGallery {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .gallery-item {
@@ -283,13 +278,14 @@
             border-radius: 0.75rem;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: transform 0.2s, border-color 0.2s;
             background: rgba(0, 0, 0, 0.6);
             flex-shrink: 0;
+            /* 画像のぼやけを防ぎシャープに描画する */
             image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            transition: border-color 0.2s;
         }
         .gallery-item:hover {
-            transform: scale(1.02);
             border-color: rgba(255, 255, 255, 0.4);
         }
 
@@ -659,20 +655,20 @@
                     <div class="spec-cell"><dt>COOLING</dt><dd>虎徹 MARK3</dd></div>
                 </dl>
 
-                <!-- 自動スクロール＆拡大対応ギャラリーセクション -->
+                <!-- ギャラリーセクション（参考サイトと完全に同じ構造・属性） -->
                 <div class="gallery-section">
                     <div class="section-header">
                         <h2><i class="fa-solid fa-camera" aria-hidden="true"></i> Gallery</h2>
-                        <button id="gallery-toggle" class="gallery-toggle-btn" type="button" aria-pressed="false" aria-label="Pause gallery animation">
+                        <button id="gallery-toggle" class="gallery-toggle-btn" type="button" aria-pressed="false">
                             <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                            <span class="sr-only">Pause gallery animation</span>
                         </button>
                     </div>
                     <div class="gallery-viewport">
                         <div class="gallery-track" id="gallery-track">
-                            <!-- 1セット目 -->
                             <img src="https://i.ibb.co/jv149Vqf/image.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="Gallery Photo 1" tabindex="0" role="button">
                             <img src="https://i.ibb.co/gLQkJjr4/IMG-3366.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="Gallery Photo 2" tabindex="0" role="button">
-                            <!-- 2セット目（ループ用） -->
+                            <!-- 無限ループ用複製 -->
                             <img src="https://i.ibb.co/jv149Vqf/image.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="" aria-hidden="true">
                             <img src="https://i.ibb.co/gLQkJjr4/IMG-3366.jpg" class="gallery-item" width="320" height="210" loading="lazy" decoding="async" alt="" aria-hidden="true">
                         </div>
@@ -902,7 +898,8 @@
     <div id="image-modal" class="modal-overlay">
         <div class="modal-content-wrap">
             <button id="modal-close" class="modal-close-btn" type="button">
-                <i class="fa-solid fa-xmark"></i>
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                <span class="sr-only">Close</span>
             </button>
             <img id="modal-image" class="modal-img" src="" alt="Enlarged setup photo">
         </div>
@@ -925,7 +922,7 @@
             });
         });
 
-        // ギャラリー一時停止 / 再生トグルボタン
+        // ギャラリー一時停止 / 再生ボタン
         const galleryToggleBtn = document.getElementById('gallery-toggle');
         const galleryTrack = document.getElementById('gallery-track');
 
@@ -934,8 +931,8 @@
                 const isPaused = galleryTrack.classList.toggle('paused');
                 galleryToggleBtn.setAttribute('aria-pressed', isPaused);
                 galleryToggleBtn.innerHTML = isPaused 
-                    ? '<i class="fa-solid fa-play" aria-hidden="true"></i>' 
-                    : '<i class="fa-solid fa-pause" aria-hidden="true"></i>';
+                    ? '<i class="fa-solid fa-play" aria-hidden="true"></i><span class="sr-only">Resume gallery animation</span>' 
+                    : '<i class="fa-solid fa-pause" aria-hidden="true"></i><span class="sr-only">Pause gallery animation</span>';
             });
         }
 
